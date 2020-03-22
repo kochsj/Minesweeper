@@ -32,6 +32,19 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visuals\Gameboard.cs" />
+    <Compile Include="GameLogic\SquareCheck.cs" />
+    <Compile Include="Text\Instructions.cs" />
+    <Compile Include="Text\GameOver.cs" />
+    <Compile Include="Text\Winner.cs" />
+    <Compile Include="Visuals\Tiles.cs" />
+    <Compile Include="GameLogic\Matrix.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Visuals\" />
+    <Folder Include="GameLogic\" />
+    <Folder Include="Text\" />
+    <Folder Include="HighScores\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using MinesweeperSK.Visuals;
 
 namespace MinesweeperSK
 {
