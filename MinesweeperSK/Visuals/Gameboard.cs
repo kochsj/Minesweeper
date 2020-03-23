@@ -26,6 +26,7 @@ namespace MinesweeperSK.Visuals
 
         public static void PrintTheBoard()
         {
+            Console.Clear();
             string theBoard = string.Format
                 (
                     "    a   b   c   d   e   f   g   h   i  " + "\n" +
