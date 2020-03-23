@@ -10,6 +10,8 @@ namespace MinesweeperSK.Visuals
 
         public static void InitializeBoardState()
         {
+            Matrix.GenerateMatrix();
+
             for (int i = 0; i < boardState.Length; i++)
             {
                 boardState[i] = Tiles.UnvisitedTile();
@@ -20,7 +22,10 @@ namespace MinesweeperSK.Visuals
         {
             foreach (KeyValuePair<int, string> tileToChange in tileDict)
             {
-                boardState[tileToChange.Key] = tileToChange.Value;
+                if (tileToChange.Key <= 80)
+                {
+                    boardState[tileToChange.Key] = tileToChange.Value;
+                }
             }
         }
 

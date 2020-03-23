@@ -40,6 +40,7 @@
     <Compile Include="Visuals\Tiles.cs" />
     <Compile Include="GameLogic\Matrix.cs" />
     <Compile Include="GameLogic\UserSelection.cs" />
+    <Compile Include="GameLogic\TranslateTileChoice.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Visuals\" />
