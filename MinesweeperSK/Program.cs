@@ -7,13 +7,18 @@ namespace MinesweeperSK
     
     class GameFlow
     {
+        static bool isPlaying = true;
+
         public static void Main(string[] args)
         {
             Gameboard.InitializeBoardState();
             Gameboard.PrintTheBoard();
-            UserSelection.SelectTile();
+            
+            while (isPlaying == true)
+            {
+                string tileChoice = UserSelection.SelectTile();
+                Console.WriteLine(string.Format("You chose tile {0}", tileChoice));
+            }
         }
-
-        
     }
 }
