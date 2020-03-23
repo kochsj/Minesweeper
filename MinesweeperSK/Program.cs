@@ -1,5 +1,6 @@
 ﻿using System;
 using MinesweeperSK.Visuals;
+using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK
 {
@@ -10,6 +11,9 @@ namespace MinesweeperSK
         {
             Gameboard.InitializeBoardState();
             Gameboard.PrintTheBoard();
+            UserSelection.SelectTile();
         }
+
+        
     }
 }

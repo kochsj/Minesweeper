@@ -39,6 +39,7 @@
     <Compile Include="Text\Winner.cs" />
     <Compile Include="Visuals\Tiles.cs" />
     <Compile Include="GameLogic\Matrix.cs" />
+    <Compile Include="GameLogic\UserSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Visuals\" />
