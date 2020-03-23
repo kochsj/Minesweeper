@@ -17,8 +17,11 @@ namespace MinesweeperSK
             while (isPlaying == true)
             {
                 string tileChoice = UserSelection.SelectTile();
-                Console.WriteLine(string.Format("You chose tile {0}", tileChoice));
+                //Console.WriteLine(string.Format("You chose tile {0}", tileChoice));
+                // do some logic
+                SquareCheck.ModifyTheTiles();
             }
         }
+
     }
 }

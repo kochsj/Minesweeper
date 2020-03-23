@@ -103,14 +103,14 @@ namespace MinesweeperSK.GameLogic
 
             return false;
         }
-        public static void ClearCurrentConsoleLine(int currentLineCursor, int numberOfLines)
+        public static void ClearCurrentConsoleLine(int currentLineCursor, int numberOfLinesToClear)
         {
-            for (int i = 0; i < numberOfLines; i++)
+            for (int i = 0; i < numberOfLinesToClear; i++)
             {
-                Console.SetCursorPosition(0, currentLineCursor - numberOfLines + i);
+                Console.SetCursorPosition(0, currentLineCursor - numberOfLinesToClear + i);
                 Console.Write(new string(' ', Console.WindowWidth));
             }
-            Console.SetCursorPosition(0, currentLineCursor - numberOfLines);
+            Console.SetCursorPosition(0, currentLineCursor - numberOfLinesToClear);
         }
     }
 }

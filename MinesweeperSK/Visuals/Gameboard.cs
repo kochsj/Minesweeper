@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK.Visuals
 {
@@ -11,6 +13,14 @@ namespace MinesweeperSK.Visuals
             for (int i = 0; i < boardState.Length; i++)
             {
                 boardState[i] = Tiles.UnvisitedTile();
+            }
+        }
+
+        public static void UpdateTheBoardState(Dictionary<int, string> tileDict)
+        {
+            foreach (KeyValuePair<int, string> tileToChange in tileDict)
+            {
+                boardState[tileToChange.Key] = tileToChange.Value;
             }
         }
 

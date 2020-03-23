@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace MinesweeperSK.Visuals
 {
     public class Tiles
@@ -15,10 +16,9 @@ namespace MinesweeperSK.Visuals
             return et;
         }
 
-        public static string NumberTile(string numberOfAdjacentMines)
+        public static string NumberTile(int numberOfAdjacentMines)
         {
-            var num = Convert.ToInt32(numberOfAdjacentMines);
-            string nt = string.Format(" {0} |", num);
+            string nt = string.Format(" {0} |", numberOfAdjacentMines);
             return nt;
         }
 
