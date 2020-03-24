@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using MinesweeperSK.Visuals;
 
 namespace MinesweeperSK.GameLogic
 {
@@ -22,7 +23,7 @@ namespace MinesweeperSK.GameLogic
 
                 if (response.ToLower() == "mark")
                 {
-                    string tileToMark = MarkTile();
+                    string tileToMark = MarkerMode();
                     if (tileToMark != "n/a")
                     {
                         isValid = true;
@@ -43,7 +44,7 @@ namespace MinesweeperSK.GameLogic
         }
 
 
-        private static string MarkTile()
+        private static string MarkerMode()
         {
             bool isValid = false;
 
@@ -67,12 +68,32 @@ namespace MinesweeperSK.GameLogic
 
                 if (isValid == true)
                 {
-                    string tileToMark = "m" + response;
-                    return tileToMark;
+                    int tileID = TranslateTileChoice.Translate(response);
+                    MarkTile(tileID);
+                    //string tileToMark = "m" + response;
+                    //return tileToMark;
                 }
 
                 //Console.WriteLine(string.Format("{0} is an invalid tile to mark. Please try again.\n", response));
             }
+        }
+
+        private static void MarkTile(int tileID)
+        {
+            string tileState = Gameboard.GetCurrentTileState(tileID);
+            var tileDict = new Dictionary<int, string>();
+
+            if (tileState == Tiles.UnvisitedTile())
+            {
+                tileDict.Add(tileID, Tiles.MarkedTile());
+            }
+            if (tileState == Tiles.MarkedTile())
+            {
+                tileDict.Add(tileID, Tiles.UnvisitedTile());
+            }
+
+            Gameboard.UpdateTheBoardState(tileDict);
+            Gameboard.PrintTheBoard();
         }
 
 
@@ -103,6 +124,7 @@ namespace MinesweeperSK.GameLogic
 
             return false;
         }
+
         public static void ClearCurrentConsoleLine(int currentLineCursor, int numberOfLinesToClear)
         {
             for (int i = 0; i < numberOfLinesToClear; i++)

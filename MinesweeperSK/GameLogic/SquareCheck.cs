@@ -6,27 +6,31 @@ namespace MinesweeperSK.GameLogic
 {
     public class SquareCheck
     {
+        /// <summary>
+        /// Checks the current Gameboard tile matrix for bombs, adjacent bombs, or adjacent empty tiles.
+        /// </summary>
 
-        public static void SquareCheckHandler(string tileChoice)
+        public static Dictionary<int,string> SquareCheckHandler(string tileChoice)
         {
             int tileToChange = TranslateTileChoice.Translate(tileChoice);
 
             var isBomb = CheckIfTileSelectionIsBomb(tileToChange);
+
             if (isBomb == true)
             {
                 // end the game
                 var bombTile = new Dictionary<int, string>();
                 bombTile.Add(tileToChange, Tiles.BombTile());
-                ModifyTheTiles(bombTile);
-                return;
+                return bombTile;
             }
 
             var adjacentTiles = CheckAdjacentTilesForBombs(tileToChange);
 
-            ModifyTheTiles(adjacentTiles);
+            return adjacentTiles;
         }
 
-        public static bool CheckIfTileSelectionIsBomb(int tileChoice)
+
+        private static bool CheckIfTileSelectionIsBomb(int tileChoice)
         {
             int[] bombTiles = Matrix.RetrieveTileNumbers();
 
@@ -40,7 +44,8 @@ namespace MinesweeperSK.GameLogic
             return false;
         }
 
-        public static Dictionary<int,string> CheckAdjacentTilesForBombs(int tileChoiceFromPlayer)
+
+        private static Dictionary<int,string> CheckAdjacentTilesForBombs(int tileChoiceFromPlayer)
         {
             // 1) Grab E/W tiles (if exist) and save them
             // 2) Check E/W tiles if they are bombs; increment numberOfAdjBombs
@@ -63,6 +68,7 @@ namespace MinesweeperSK.GameLogic
 
             void adjRecurse(int tileChoice, Dictionary<int, string> dictOfTileIDAndTileType, List<int> alreadyVisitedTiles)
             {
+                alreadyVisitedTiles.Add(tileChoice);
                 int numberOfAdjBombs = 0;
                 var adjDictOfValidTiles = new Dictionary<string, int>();
 
@@ -71,44 +77,40 @@ namespace MinesweeperSK.GameLogic
                 foreach (KeyValuePair<string,int> direction in eWDict)
                 {
                     adjDictOfValidTiles.Add(direction.Key, direction.Value);
-                    //if (direction.Value != 90) { adjDictOfValidTiles.Add(direction.Key, direction.Value); }
                 }
 
                 //2
                 numberOfAdjBombs += EastWestBombCheckHandler(adjDictOfValidTiles);
 
                 //3
-                var nSDict = NorthSouthAdjacencyHandler(tileChoice);
+                var nSDict = NorthSouthAdjacencyHandler(tileChoice, "org");
                 foreach (KeyValuePair<string,int> direction in nSDict)
                 {
                     adjDictOfValidTiles.Add(direction.Key, direction.Value);
-                    //if (direction.Value != 90) { adjDictOfValidTiles.Add(direction.Key, direction.Value); }
                 }
 
                 //4
-                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles);
+                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles, "org");
 
                 //5
-                nSDict = NorthSouthAdjacencyHandler(adjDictOfValidTiles["west"]);
+                nSDict = NorthSouthAdjacencyHandler(adjDictOfValidTiles["west"], "w");
                 foreach (KeyValuePair<string, int> direction in nSDict)
                 {
                     adjDictOfValidTiles[direction.Key] = direction.Value;
-                    //adjDictOfValidTiles.Add(direction.Key, direction.Value);
                 }
 
                 //6
-                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles);
+                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles, "w");
 
                 //7
-                nSDict = NorthSouthAdjacencyHandler(adjDictOfValidTiles["east"]);
+                nSDict = NorthSouthAdjacencyHandler(adjDictOfValidTiles["east"], "e");
                 foreach (KeyValuePair<string, int> direction in nSDict)
                 {
                     adjDictOfValidTiles[direction.Key] = direction.Value;
-                    //adjDictOfValidTiles.Add(direction.Key, direction.Value);
                 }
 
                 //8
-                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles);
+                numberOfAdjBombs += NorthSouthBombCheckHandler(adjDictOfValidTiles, "e");
 
                 //9
                 if (numberOfAdjBombs == 0)
@@ -119,29 +121,22 @@ namespace MinesweeperSK.GameLogic
 
                         if (tile.Value <= 80 & haveNotVisited) //meaning it is valid tile
                         {
-                            alreadyVisitedTiles.Add(tile.Value);
-                            var tileType = getTileType(tile.Value, numberOfAdjBombs);
-                            dictOfTileIDAndTileType.Add(tile.Value, tileType[tile.Value]);
-                            Console.WriteLine(string.Format("Added {0}", tile.Value));
-                            Console.WriteLine(string.Format("======Checking {0}, Tile {1}", tile.Key, tile.Value));
                             adjRecurse(tile.Value, dictOfTileIDAndTileType, alreadyVisitedTiles);
+                            Console.WriteLine(string.Format("Added and searching {0}", tile.Value));
                         }
                     }
                 }
-                bool haveNotVisited2 = CheckIfNotVisited(tileChoice, alreadyVisitedTiles);
 
-                if (haveNotVisited2)
-                {
-                    alreadyVisitedTiles.Add(tileChoice);
-                    Console.WriteLine(string.Format("Added outside {0}", tileChoice));
-                    var tileType = getTileType(tileChoice, numberOfAdjBombs);
-                    dictOfTileIDAndTileType.Add( tileChoice, tileType[tileChoice] );
-                }
-                
-
+                var tileType = GetTileType(tileChoice, numberOfAdjBombs);
+                dictOfTileIDAndTileType.Add( tileChoice, tileType[tileChoice] );
+                Console.WriteLine(string.Format("Adding to final dict: tile {0}", tileChoice));
             }
 
 
+
+    //////////////////////////////////////
+    /// Helper Functions
+    //////////////////////////////////////
             bool CheckIfNotVisited(int tile, List<int> list)
             {
                 foreach (int tileNum in list)
@@ -152,7 +147,7 @@ namespace MinesweeperSK.GameLogic
             }
 
 
-            Dictionary<int,string> getTileType(int tileChoice, int numberOfAdjBombs)
+            Dictionary<int,string> GetTileType(int tileChoice, int numberOfAdjBombs)
             {
                 var dict = new Dictionary<int, string>();
                 if (numberOfAdjBombs == 0)
@@ -175,11 +170,11 @@ namespace MinesweeperSK.GameLogic
                 return numberOfAdjBombs;
             }
 
-            int NorthSouthBombCheckHandler(Dictionary<string,int> adjDictOfValidTiles)
+            int NorthSouthBombCheckHandler(Dictionary<string,int> adjDictOfValidTiles, string identifier)
             {
                 int numberOfAdjBombs = 0;
-                bool northIsBomb = CheckIfTileSelectionIsBomb(adjDictOfValidTiles["north"]);
-                bool southIsBomb = CheckIfTileSelectionIsBomb(adjDictOfValidTiles["south"]);
+                bool northIsBomb = CheckIfTileSelectionIsBomb(adjDictOfValidTiles["north"+identifier]);
+                bool southIsBomb = CheckIfTileSelectionIsBomb(adjDictOfValidTiles["south"+identifier]);
                 if (northIsBomb) { numberOfAdjBombs++; }
                 if (southIsBomb) { numberOfAdjBombs++; }
 
@@ -198,14 +193,14 @@ namespace MinesweeperSK.GameLogic
                 return adjDict;
             }
 
-            Dictionary<string, int> NorthSouthAdjacencyHandler(int tileChoice)
+            Dictionary<string, int> NorthSouthAdjacencyHandler(int tileChoice, string identifier)
             {
                 var adjDict = new Dictionary<string, int>();
 
                 int north = getNorth(tileChoice);
                 int south = getSouth(tileChoice);
-                adjDict.Add("north", north);
-                adjDict.Add("south", south);
+                adjDict.Add("north"+identifier, north);
+                adjDict.Add("south"+identifier, south);
 
                 return adjDict;
             }
@@ -233,23 +228,6 @@ namespace MinesweeperSK.GameLogic
             }
 
         }
-
-        public static Dictionary<int, string> SquaresToModify()
-        {
-            // will return the squareID# : new tileString being updated
-            var squareDict = new Dictionary<int, string>();
-            squareDict.Add(30, Tiles.NumberTile(1));
-            squareDict.Add(80, Tiles.NumberTile(3));
-            return squareDict;
-        }
-
-
-        public static void ModifyTheTiles(Dictionary<int,string> squaresToModify)
-        {
-            Gameboard.UpdateTheBoardState(squaresToModify);
-            Gameboard.PrintTheBoard();
-        }
-
 
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using MinesweeperSK.Visuals;
 using MinesweeperSK.GameLogic;
+using System.Collections.Generic;
 
 namespace MinesweeperSK
 {
@@ -18,11 +19,18 @@ namespace MinesweeperSK
             while (isPlaying == true)
             {
                 string tileChoice = UserSelection.SelectTile();
-                SquareCheck.SquareCheckHandler(tileChoice);
-                //Console.WriteLine(string.Format("You chose tile {0}", tileChoice));
-                // do some logic
-                //SquareCheck.ModifyTheTiles();
+                var squaresToModify = SquareCheck.SquareCheckHandler(tileChoice);
+
+                foreach (var tile in squaresToModify)
+                {
+                    if (tile.Value == Tiles.BombTile()) { isPlaying = false; }
+                }
+
+                Gameboard.UpdateTheBoardState(squaresToModify);
+                Gameboard.PrintTheBoard();
+
             }
+            Console.WriteLine("GAME OVER");
         }
 
     }

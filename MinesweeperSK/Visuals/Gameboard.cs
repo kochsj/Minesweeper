@@ -18,6 +18,11 @@ namespace MinesweeperSK.Visuals
             }
         }
 
+        public static string GetCurrentTileState(int tileID)
+        {
+            return boardState[tileID];
+        }
+
         public static void UpdateTheBoardState(Dictionary<int, string> tileDict)
         {
             foreach (KeyValuePair<int, string> tileToChange in tileDict)
