@@ -30,7 +30,7 @@ namespace MinesweeperSK.GameLogic
         {
             for (int i = 0; i < gameMatrix.Length; i++)
             {
-                Console.WriteLine(gameMatrix[i]);
+                Console.WriteLine(string.Format("Tile {0}: {1}", i, gameMatrix[i]));
             }
         }
 

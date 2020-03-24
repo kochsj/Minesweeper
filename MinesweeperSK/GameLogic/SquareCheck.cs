@@ -15,6 +15,9 @@ namespace MinesweeperSK.GameLogic
             if (isBomb == true)
             {
                 // end the game
+                var bombTile = new Dictionary<int, string>();
+                bombTile.Add(tileToChange, Tiles.BombTile());
+                ModifyTheTiles(bombTile);
                 return;
             }
 
@@ -50,14 +53,15 @@ namespace MinesweeperSK.GameLogic
             // 9) Check if numberOfAdjBombs > 0; if it isn't we call CheckAdjacentTilesForBombs for every adjacent tile
             // 10) Return number of adj bombs for given tile
             var dictOfTileIDAndTileTypeForUse = new Dictionary<int, string>();
+            var visitedTiles = new List<int>();
 
-            adjRecurse(tileChoiceFromPlayer, dictOfTileIDAndTileTypeForUse);
+            adjRecurse(tileChoiceFromPlayer, dictOfTileIDAndTileTypeForUse, visitedTiles);
 
             return dictOfTileIDAndTileTypeForUse;
 
 
 
-            void adjRecurse(int tileChoice, Dictionary<int, string> dictOfTileIDAndTileType)
+            void adjRecurse(int tileChoice, Dictionary<int, string> dictOfTileIDAndTileType, List<int> alreadyVisitedTiles)
             {
                 int numberOfAdjBombs = 0;
                 var adjDictOfValidTiles = new Dictionary<string, int>();
@@ -111,17 +115,42 @@ namespace MinesweeperSK.GameLogic
                 {
                     foreach (KeyValuePair<string,int> tile in adjDictOfValidTiles)
                     {
-                        if (tile.Value <= 80) //meaning it is valid tile
+                        bool haveNotVisited = CheckIfNotVisited(tile.Value, alreadyVisitedTiles);
+
+                        if (tile.Value <= 80 & haveNotVisited) //meaning it is valid tile
                         {
-                            adjRecurse(tile.Value, dictOfTileIDAndTileType);
+                            alreadyVisitedTiles.Add(tile.Value);
+                            var tileType = getTileType(tile.Value, numberOfAdjBombs);
+                            dictOfTileIDAndTileType.Add(tile.Value, tileType[tile.Value]);
+                            Console.WriteLine(string.Format("Added {0}", tile.Value));
+                            Console.WriteLine(string.Format("======Checking {0}, Tile {1}", tile.Key, tile.Value));
+                            adjRecurse(tile.Value, dictOfTileIDAndTileType, alreadyVisitedTiles);
                         }
                     }
                 }
-                var tileType = getTileType(tileChoice, numberOfAdjBombs);
-                dictOfTileIDAndTileType.Add( tileChoice, tileType[tileChoice] );
+                bool haveNotVisited2 = CheckIfNotVisited(tileChoice, alreadyVisitedTiles);
+
+                if (haveNotVisited2)
+                {
+                    alreadyVisitedTiles.Add(tileChoice);
+                    Console.WriteLine(string.Format("Added outside {0}", tileChoice));
+                    var tileType = getTileType(tileChoice, numberOfAdjBombs);
+                    dictOfTileIDAndTileType.Add( tileChoice, tileType[tileChoice] );
+                }
                 
 
             }
+
+
+            bool CheckIfNotVisited(int tile, List<int> list)
+            {
+                foreach (int tileNum in list)
+                {
+                    if (tile == tileNum) { return false; }
+                }
+                return true;
+            }
+
 
             Dictionary<int,string> getTileType(int tileChoice, int numberOfAdjBombs)
             {
