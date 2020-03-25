@@ -71,11 +71,7 @@ namespace MinesweeperSK.GameLogic
                 {
                     int tileID = TranslateTileChoice.Translate(response);
                     MarkTile(tileID);
-                    //string tileToMark = "m" + response;
-                    //return tileToMark;
                 }
-
-                //Console.WriteLine(string.Format("{0} is an invalid tile to mark. Please try again.\n", response));
             }
         }
 

@@ -6,11 +6,13 @@ namespace MinesweeperSK.Visuals
 {
     public class Gameboard
     {
-        private static string[] boardState = new string[81];
+        private static string[] boardState;
 
-        public static void InitializeBoardState()
+        public static void InitializeBoardState(int boardSize)
         {
-            Matrix.GenerateMatrix();
+            boardState = new string[boardSize];
+
+            Matrix.GenerateMatrix(boardSize);
 
             for (int i = 0; i < boardState.Length; i++)
             {

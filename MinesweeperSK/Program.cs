@@ -12,7 +12,7 @@ namespace MinesweeperSK
         {
             bool isPlaying = true;
 
-            Gameboard.InitializeBoardState();
+            Gameboard.InitializeBoardState(81);
             Matrix.PrintMatrix();
             Gameboard.PrintTheBoard();
 
