@@ -21,19 +21,14 @@ namespace MinesweeperSK.GameLogic
         {
             
             char firstChar = tileChoice[0];
-            //Console.WriteLine("first char: " + firstChar);
             char secondChar = tileChoice[1];
-            //Console.WriteLine("second char: " + secondChar);
 
             Alphabet secondEnum = (Alphabet)Enum.Parse(typeof(Alphabet), Char.ToString(secondChar));
-            //Console.WriteLine("second enum: " + secondEnum);
 
             int firstInt = (int)Char.GetNumericValue(firstChar);
             int secondInt = Convert.ToInt32(secondEnum);
-            //Console.WriteLine(string.Format("firstint: {0}, secondInt: {1}", firstInt, secondInt));
 
             var tileToChange = ((firstInt - 1) * 9) + secondInt;
-            //Console.WriteLine(tileToChange);
             return tileToChange;
         }
     }

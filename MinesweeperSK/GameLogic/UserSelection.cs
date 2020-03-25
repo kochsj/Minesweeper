@@ -29,6 +29,7 @@ namespace MinesweeperSK.GameLogic
                         isValid = true;
                         response = tileToMark;
                     }
+                    return "marked";
                 }
                 else
                 {
@@ -50,7 +51,7 @@ namespace MinesweeperSK.GameLogic
 
             while (true)
             {
-                Console.WriteLine("MARKER MODE");
+                Console.WriteLine("================ MARKER MODE ===================");
                 Console.WriteLine("Enter tile to mark with '?' (examples: 3d or 9a)");
                 Console.WriteLine("Enter 'mark' again to exit marker mode.");
 

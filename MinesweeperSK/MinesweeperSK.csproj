@@ -41,6 +41,7 @@
     <Compile Include="GameLogic\Matrix.cs" />
     <Compile Include="GameLogic\UserSelection.cs" />
     <Compile Include="GameLogic\TranslateTileChoice.cs" />
+    <Compile Include="GameLogic\WinCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Visuals\" />
