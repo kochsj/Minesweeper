@@ -9,13 +9,13 @@ namespace MinesweeperSK.GameLogic
 
         public static void GenerateMatrix(int boardSize)
         {
-            bombTiles = new int[boardSize];
-
             double numberOfMines = boardSize * 0.15;
-            Console.WriteLine(numberOfMines);
+
+            bombTiles = new int[(int)numberOfMines];
+
             var rand = new Random();
 
-            for (int i = 0; i < numberOfMines; i++)
+            for (int i = 0; i < (int)numberOfMines; i++)
             {
                 int temp = rand.Next(boardSize);
 
