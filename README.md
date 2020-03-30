@@ -1,5 +1,5 @@
 # Download and Play!
-This is my first forray into learning to speak C# and is fully for educational purposes. No certificate present (for now) - You may need to tell your computer to trust this file to play ;)
+This is my first forray into learning to speak C# and is fully for educational purposes. No certificate present (for now) - You may need to tell your computer to trust this file to play ;) (more info, "open anyway")
 ### Windows Users:
 1) Click the MinesweeperSK.exe file and click download.
 2) When the .exe is finished downloading, open the file
