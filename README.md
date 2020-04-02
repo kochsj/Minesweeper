@@ -9,4 +9,5 @@ A bit more difficult.
 2) After that, click "Clone or download" button here. Download ZIP.
 ![Click to Download](downloadZIP.png)
 3) Open the ZIP file in FileExplorer. Double Click to open the MinesweeperSK.sln file.
-4) When Visual Studio opens, you only need to press F5 (or fn F5 on macbook Pro 2018 era)
+4) When Visual Studio opens, you only need to press F5 (or fn F5 on macbook Pro 2018 era)<br><br>
+![minesweeperSK](minesweeperSK.png)
