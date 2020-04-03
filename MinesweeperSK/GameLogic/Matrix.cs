@@ -13,7 +13,7 @@ namespace MinesweeperSK.GameLogic
 
             bombTiles = new int[(int)numberOfMines];
 
-            var rand = new Random();
+            Random rand = new Random();
 
             for (int i = 0; i < (int)numberOfMines; i++)
             {
@@ -21,7 +21,7 @@ namespace MinesweeperSK.GameLogic
 
                 while (gameMatrix[temp] != 0)
                 {
-                    temp = rand.Next(81);
+                    temp = rand.Next(boardSize);
                 }
 
                 gameMatrix[temp] = 1;

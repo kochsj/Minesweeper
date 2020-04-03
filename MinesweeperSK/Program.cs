@@ -12,13 +12,12 @@ namespace MinesweeperSK
         public static void Main()
         {
             StartingScreen.PrintStartingScreen();
-            int selection = StartingScreen.ManageStartingScreen();
+
+            int boardSizeSelection = StartingScreen.ManageStartingScreen();
             
             bool isPlaying = true;
 
-            Gameboard.InitializeBoardState(81);
-            //Matrix.PrintMatrix();
-            Gameboard.PrintTheBoard(true);
+            Gameboard.InitializeBoardState(boardSizeSelection);
 
             while (isPlaying == true)
             {
@@ -35,11 +34,13 @@ namespace MinesweeperSK
                     }
 
                     Gameboard.UpdateTheBoardState(squaresToModify);
-                    Gameboard.PrintTheBoard(false);
                 }
 
                 bool wonGame = WinCondition.CheckWinCondition(81);
-                if (wonGame) { isPlaying = false; Console.WriteLine("YOU WIN!!!!"); }
+                if (wonGame)
+                {
+                    isPlaying = false; Console.WriteLine("YOU WIN!!!!");
+                }
             }
             GameOver.PrintGameOver();
 

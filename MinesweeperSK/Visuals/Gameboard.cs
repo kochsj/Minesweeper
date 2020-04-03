@@ -8,22 +8,38 @@ namespace MinesweeperSK.Visuals
     {
         private static string[] boardState;
 
+        public static int gameboardSize;
+
+        public enum BoardSizes
+        {
+            easy=25,
+            regular=81,
+            hard=256,
+
+        }
+
+
         public static void InitializeBoardState(int boardSize)
         {
-            boardState = new string[boardSize];
+            gameboardSize = boardSize;
+            boardState = new string[gameboardSize];
 
-            Matrix.GenerateMatrix(boardSize);
+            Matrix.GenerateMatrix(gameboardSize);
 
             for (int i = 0; i < boardState.Length; i++)
             {
                 boardState[i] = Tiles.UnvisitedTile();
             }
+
+            PrintTheBoard(true, gameboardSize);
         }
+
 
         public static string GetCurrentTileState(int tileID)
         {
             return boardState[tileID];
         }
+
 
         public static void UpdateTheBoardState(Dictionary<int, string> tileDict)
         {
@@ -36,9 +52,12 @@ namespace MinesweeperSK.Visuals
                     //Console.WriteLine(string.Format("officially changed tile: {0}", tileToChange.Key));
                 }
             }
+
+            PrintTheBoard(false, gameboardSize);
         }
 
-        public static void PrintTheBoard(bool firstRound)
+
+        public static void PrintTheBoard(bool firstRound, int boardSize)
         {
             //Console.Clear();
             if (firstRound)
