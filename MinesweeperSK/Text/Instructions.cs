@@ -4,8 +4,9 @@ namespace MinesweeperSK.Text
 {
     public class Instructions
     {
-        public Instructions()
+        public static void PrintInstructions()
         {
+
         }
     }
 }
