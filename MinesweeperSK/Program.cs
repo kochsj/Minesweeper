@@ -9,7 +9,7 @@ namespace MinesweeperSK
     
     class GameFlow
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             StartingScreen.PrintStartingScreen();
             int selection = StartingScreen.ManageStartingScreen();
@@ -17,8 +17,8 @@ namespace MinesweeperSK
             bool isPlaying = true;
 
             Gameboard.InitializeBoardState(81);
-            Matrix.PrintMatrix();
-            Gameboard.PrintTheBoard();
+            //Matrix.PrintMatrix();
+            Gameboard.PrintTheBoard(true);
 
             while (isPlaying == true)
             {
@@ -35,16 +35,13 @@ namespace MinesweeperSK
                     }
 
                     Gameboard.UpdateTheBoardState(squaresToModify);
-                    Gameboard.PrintTheBoard();
+                    Gameboard.PrintTheBoard(false);
                 }
 
                 bool wonGame = WinCondition.CheckWinCondition(81);
                 if (wonGame) { isPlaying = false; Console.WriteLine("YOU WIN!!!!"); }
             }
-            Console.WriteLine("GAME OVER");
-            // TODO: show all bomb tiles
-            // TODO: Print Text.GameOver (with time, stats, etc)
-            Console.ReadLine();
+            GameOver.PrintGameOver();
 
             bool deciding = true;
 
@@ -53,8 +50,17 @@ namespace MinesweeperSK
                 Console.WriteLine("Would you like to play again? (y/n)");
                 string response = Console.ReadLine();
 
-                if (response.ToLower() == "y") { deciding = false;  Main(new string[0]); }
+                UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 2);
+
+                if (response.ToLower() == "y")
+                {
+                    deciding = false;
+                    GameOver.EraseGameOver();
+                    Gameboard.EraseTheBoard();
+                    Main();
+                }
                 if (response.ToLower() == "n") { return; }
+
             }
         }
 

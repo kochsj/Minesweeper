@@ -122,14 +122,14 @@ namespace MinesweeperSK.GameLogic
                         if (tile.Value <= 80 & haveNotVisited) //meaning it is valid tile
                         {
                             adjRecurse(tile.Value, dictOfTileIDAndTileType, alreadyVisitedTiles);
-                            Console.WriteLine(string.Format("Added and searching {0}", tile.Value));
+                            //Console.WriteLine(string.Format("Added and searching {0}", tile.Value));
                         }
                     }
                 }
 
                 var tileType = GetTileType(tileChoice, numberOfAdjBombs);
                 dictOfTileIDAndTileType.Add( tileChoice, tileType[tileChoice] );
-                Console.WriteLine(string.Format("Adding to final dict: tile {0}", tileChoice));
+                //Console.WriteLine(string.Format("Adding to final dict: tile {0}", tileChoice));
             }
 
 

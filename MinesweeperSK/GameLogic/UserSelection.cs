@@ -90,7 +90,7 @@ namespace MinesweeperSK.GameLogic
             }
 
             Gameboard.UpdateTheBoardState(tileDict);
-            Gameboard.PrintTheBoard();
+            Gameboard.PrintTheBoard(false);
         }
 
 

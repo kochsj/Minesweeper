@@ -29,18 +29,27 @@ namespace MinesweeperSK.Visuals
         {
             foreach (KeyValuePair<int, string> tileToChange in tileDict)
             {
-                Console.WriteLine(string.Format("changing tile: {0}, with: {1}", tileToChange.Key, tileToChange.Value ));
+                //Console.WriteLine(string.Format("changing tile: {0}, with: {1}", tileToChange.Key, tileToChange.Value ));
                 if (tileToChange.Key <= 80)
                 {
                     boardState[tileToChange.Key] = tileToChange.Value;
-                    Console.WriteLine(string.Format("officially changed tile: {0}", tileToChange.Key));
+                    //Console.WriteLine(string.Format("officially changed tile: {0}", tileToChange.Key));
                 }
             }
         }
 
-        public static void PrintTheBoard()
+        public static void PrintTheBoard(bool firstRound)
         {
-            Console.Clear();
+            //Console.Clear();
+            if (firstRound)
+            {
+                UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 4);
+            }
+            else
+            {
+                EraseTheBoard();
+            }
+
             string theBoard = string.Format
                 (
                     "    a   b   c   d   e   f   g   h   i  " + "\n" +
@@ -67,7 +76,12 @@ namespace MinesweeperSK.Visuals
                 );
             Console.WriteLine(theBoard);
         }
-        
+
+        public static void EraseTheBoard()
+        {
+            UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 20);
+        }
+
         public static void PrintTheBoardDepracated()
         {
             Console.WriteLine(@"    a   b   c   d   e   f   g   h   i  ");
