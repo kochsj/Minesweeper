@@ -1,6 +1,7 @@
 ﻿using System;
 using MinesweeperSK.Visuals;
 using MinesweeperSK.GameLogic;
+using MinesweeperSK.Text;
 using System.Collections.Generic;
 
 namespace MinesweeperSK
@@ -10,6 +11,9 @@ namespace MinesweeperSK
     {
         public static void Main(string[] args)
         {
+            StartingScreen.PrintStartingScreen();
+            int selection = StartingScreen.ManageStartingScreen();
+            
             bool isPlaying = true;
 
             Gameboard.InitializeBoardState(81);
