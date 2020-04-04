@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MinesweeperSK.Visuals
+namespace MinesweeperSK.GameLogic
 {
     public class Tiles
     {

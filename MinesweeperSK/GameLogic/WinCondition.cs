@@ -1,5 +1,5 @@
 ﻿using System;
-using MinesweeperSK.Visuals;
+using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK.GameLogic
 {
@@ -12,7 +12,7 @@ namespace MinesweeperSK.GameLogic
 
             for (int i = 0; i < numberOfTiles; i++)
             {
-                string tileState = Gameboard.GetCurrentTileState(i);
+                string tileState = BoardState.GetCurrentTileState(i);
 
                 if (tileState == Tiles.UnvisitedTile()) { return false; }
                 if (tileState == Tiles.MarkedTile() & CheckNotBombTile(bombTiles, i)) { return false; }

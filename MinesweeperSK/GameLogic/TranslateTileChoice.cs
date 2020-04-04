@@ -6,20 +6,32 @@ namespace MinesweeperSK.GameLogic
     {
         enum Alphabet
         {
-            a = 0,
-            b = 1,
-            c = 2,
-            d = 3,
-            e = 4,
-            f = 5,
-            g = 6,
-            h = 7,
-            i = 8
+            a,
+            b,
+            c,
+            d,
+            e,
+            f,
+            g,
+            h,
+            i,
+            j,
+            k,
+            l,
+            m,
+            n,
+            o,
+            p
         };
-
+        
         public static int Translate(string tileChoice)
         {
-            
+            int boardWidth = 0;
+
+            if (BoardState.gameDifficulty == "easy") { boardWidth = 5; }
+            if (BoardState.gameDifficulty == "regular") { boardWidth = 9; }
+            if (BoardState.gameDifficulty == "hard") { boardWidth = 16; }
+
             char firstChar = tileChoice[0];
             char secondChar = tileChoice[1];
 
@@ -28,7 +40,7 @@ namespace MinesweeperSK.GameLogic
             int firstInt = (int)Char.GetNumericValue(firstChar);
             int secondInt = Convert.ToInt32(secondEnum);
 
-            var tileToChange = ((firstInt - 1) * 9) + secondInt;
+            var tileToChange = ((firstInt - 1) * boardWidth) + secondInt;
             return tileToChange;
         }
     }

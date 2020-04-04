@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MinesweeperSK.Visuals;
+using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK.GameLogic
 {
@@ -40,7 +40,7 @@ namespace MinesweeperSK.GameLogic
                 {
                     return response;
                 }
-                
+
             }
         }
 
@@ -77,7 +77,7 @@ namespace MinesweeperSK.GameLogic
 
         private static void MarkTile(int tileID)
         {
-            string tileState = Gameboard.GetCurrentTileState(tileID);
+            string tileState = BoardState.GetCurrentTileState(tileID);
             var tileDict = new Dictionary<int, string>();
 
             if (tileState == Tiles.UnvisitedTile())
@@ -89,7 +89,7 @@ namespace MinesweeperSK.GameLogic
                 tileDict.Add(tileID, Tiles.UnvisitedTile());
             }
 
-            Gameboard.UpdateTheBoardState(tileDict);
+            BoardState.UpdateTheBoardState(tileDict);
         }
 
 

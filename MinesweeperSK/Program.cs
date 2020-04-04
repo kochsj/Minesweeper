@@ -1,5 +1,4 @@
 ﻿using System;
-using MinesweeperSK.Visuals;
 using MinesweeperSK.GameLogic;
 using MinesweeperSK.Text;
 using System.Collections.Generic;
@@ -13,11 +12,11 @@ namespace MinesweeperSK
         {
             StartingScreen.PrintStartingScreen();
 
-            int boardSizeSelection = StartingScreen.ManageStartingScreen();
+            string boardSizeSelection = StartingScreen.ManageStartingScreen();
             
             bool isPlaying = true;
 
-            Gameboard.InitializeBoardState(boardSizeSelection);
+            BoardState.InitializeBoardState(boardSizeSelection);
 
             while (isPlaying == true)
             {
@@ -33,7 +32,7 @@ namespace MinesweeperSK
                         if (tile.Value == Tiles.BombTile()) { isPlaying = false; }
                     }
 
-                    Gameboard.UpdateTheBoardState(squaresToModify);
+                    BoardState.UpdateTheBoardState(squaresToModify);
                 }
 
                 bool wonGame = WinCondition.CheckWinCondition(81);
@@ -57,7 +56,7 @@ namespace MinesweeperSK
                 {
                     deciding = false;
                     GameOver.EraseGameOver();
-                    Gameboard.EraseTheBoard();
+                    BoardState.EraseTheBoard();
                     Main();
                 }
                 if (response.ToLower() == "n") { return; }

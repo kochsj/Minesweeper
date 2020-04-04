@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MinesweeperSK.Visuals;
+using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK.GameLogic
 {
@@ -59,6 +59,13 @@ namespace MinesweeperSK.GameLogic
             // 10) Return number of adj bombs for given tile
             var dictOfTileIDAndTileTypeForUse = new Dictionary<int, string>();
             var visitedTiles = new List<int>();
+            int boardHeight = 0;
+            int boardWidth = 0;
+
+
+            if (BoardState.gameDifficulty == "easy") { boardHeight = 19; boardWidth = 5; }
+            if (BoardState.gameDifficulty == "regular") { boardHeight = 71; boardWidth = 9; }
+            if (BoardState.gameDifficulty == "hard") { boardHeight = 239; boardWidth = 16; }
 
             adjRecurse(tileChoiceFromPlayer, dictOfTileIDAndTileTypeForUse, visitedTiles);
 
@@ -119,7 +126,7 @@ namespace MinesweeperSK.GameLogic
                     {
                         bool haveNotVisited = CheckIfNotVisited(tile.Value, alreadyVisitedTiles);
 
-                        if (tile.Value <= 80 & haveNotVisited) //meaning it is valid tile
+                        if (tile.Value >= 0 & haveNotVisited) //meaning it is valid tile
                         {
                             adjRecurse(tile.Value, dictOfTileIDAndTileType, alreadyVisitedTiles);
                             //Console.WriteLine(string.Format("Added and searching {0}", tile.Value));
@@ -208,23 +215,23 @@ namespace MinesweeperSK.GameLogic
 
             int getNorth(int tileChoice)
             {
-                if (tileChoice >= 9) { return tileChoice - 9; }
-                else { return 90; }
+                if (tileChoice >= boardWidth) { return tileChoice - boardWidth; }
+                else { return -1; }
             }
             int getSouth(int tileChoice)
             {
-                if (tileChoice <= 71) { return tileChoice + 9; }
-                else { return 90; }
+                if (tileChoice <= boardHeight) { return tileChoice + boardWidth; }
+                else { return -1; }
             }
             int getEast(int tileChoice)
             {
-                if ((tileChoice + 1) % 9 != 0) { return tileChoice + 1; }
-                else { return 90; }
+                if ((tileChoice + 1) % boardWidth != 0) { return tileChoice + 1; }
+                else { return -1; }
             }
             int getWest(int tileChoice)
             {
-                if (tileChoice % 9 != 0) { return tileChoice - 1; }
-                else { return 90; }
+                if (tileChoice % boardWidth != 0) { return tileChoice - 1; }
+                else { return -1; }
             }
 
         }

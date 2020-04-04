@@ -34,7 +34,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Visuals\Gameboard.cs" />
     <Compile Include="GameLogic\SquareCheck.cs" />
     <Compile Include="Text\Instructions.cs" />
     <Compile Include="Text\GameOver.cs" />
@@ -45,6 +44,8 @@
     <Compile Include="GameLogic\TranslateTileChoice.cs" />
     <Compile Include="GameLogic\WinCondition.cs" />
     <Compile Include="Text\StartingScreen.cs" />
+    <Compile Include="GameLogic\BoardState.cs" />
+    <Compile Include="Visuals\GameboardVisuals.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Visuals\" />
