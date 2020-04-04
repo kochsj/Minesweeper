@@ -15,6 +15,7 @@ namespace MinesweeperSK
             string boardSizeSelection = StartingScreen.ManageStartingScreen();
             
             bool isPlaying = true;
+            bool winner = false;
 
             BoardState.InitializeBoardState(boardSizeSelection);
 
@@ -35,9 +36,10 @@ namespace MinesweeperSK
                     BoardState.UpdateTheBoardState(squaresToModify);
                 }
 
-                bool wonGame = WinCondition.CheckWinCondition(81);
+                bool wonGame = WinCondition.CheckWinCondition(BoardState.gameboardSize);
                 if (wonGame)
                 {
+                    winner = true;
                     isPlaying = false; Console.WriteLine("YOU WIN!!!!");
                 }
             }
@@ -50,7 +52,8 @@ namespace MinesweeperSK
                 Console.WriteLine("Would you like to play again? (y/n)");
                 string response = Console.ReadLine();
 
-                UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 2);
+                if (winner) { UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 3); }
+                else { UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 2); }
 
                 if (response.ToLower() == "y")
                 {

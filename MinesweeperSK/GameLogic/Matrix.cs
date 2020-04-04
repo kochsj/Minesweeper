@@ -4,11 +4,13 @@ namespace MinesweeperSK.GameLogic
 {
     public class Matrix
     {
-        private static int[] gameMatrix = new int[81];
+        private static int[] gameMatrix;
         private static int[] bombTiles;
 
         public static void GenerateMatrix(int boardSize)
         {
+            gameMatrix = new int[boardSize];
+
             double numberOfMines = boardSize * 0.15;
 
             bombTiles = new int[(int)numberOfMines];
