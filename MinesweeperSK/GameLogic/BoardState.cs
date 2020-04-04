@@ -53,7 +53,7 @@ namespace MinesweeperSK.GameLogic
             foreach (KeyValuePair<int, string> tileToChange in tileDict)
             {
                 //Console.WriteLine(string.Format("changing tile: {0}, with: {1}", tileToChange.Key, tileToChange.Value));
-                if (tileToChange.Key <= 80)
+                if (tileToChange.Key >= 0)
                 {
                     boardState[tileToChange.Key] = tileToChange.Value;
                     //Console.WriteLine(string.Format("officially changed tile: {0}", tileToChange.Key));

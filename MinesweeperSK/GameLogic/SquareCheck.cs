@@ -12,7 +12,16 @@ namespace MinesweeperSK.GameLogic
 
         public static Dictionary<int,string> SquareCheckHandler(string tileChoice)
         {
-            int tileToChange = TranslateTileChoice.Translate(tileChoice);
+            int tileToChange = 0;
+
+            if (tileChoice.Length == 3)
+            {
+                tileToChange = TranslateTileChoice.Translate(tileChoice, 3);
+            }
+            else
+            {
+                tileToChange = TranslateTileChoice.Translate(tileChoice, 2);
+            }
 
             var isBomb = CheckIfTileSelectionIsBomb(tileToChange);
 

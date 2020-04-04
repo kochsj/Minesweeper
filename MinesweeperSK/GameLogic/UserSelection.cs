@@ -67,9 +67,14 @@ namespace MinesweeperSK.GameLogic
 
                 isValid = ValidateTileSelection(response);
 
-                if (isValid == true)
+                if (isValid == true & response.Length == 3)
                 {
-                    int tileID = TranslateTileChoice.Translate(response);
+                    int tileID = TranslateTileChoice.Translate(response, 3);
+                    MarkTile(tileID);
+                }
+                else
+                {
+                    int tileID = TranslateTileChoice.Translate(response, 2);
                     MarkTile(tileID);
                 }
             }
@@ -95,14 +100,52 @@ namespace MinesweeperSK.GameLogic
 
         private static bool ValidateTileSelection(string response)
         {
-            var validNumbers = new char[9] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-            var validLetters = new char[9] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' };
+            string[] validNumbers = new string[1];
+            char[] validLetters = new char[1];
+            string firstChar = Char.ToString(response[0]);
 
-            if (response.Length != 2)
+
+            if (BoardState.gameDifficulty == "easy")
+            {
+                validNumbers = new string[5] { "1", "2", "3", "4", "5" };
+                validLetters = new char[5] { 'a', 'b', 'c', 'd', 'e' };
+            }
+            if (BoardState.gameDifficulty == "regular")
+            {
+                validNumbers = new string[9] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+                validLetters = new char[9] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' };
+            }
+            if (BoardState.gameDifficulty == "hard")
+            {
+                validNumbers = new string[16] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
+                validLetters = new char[16] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p' };
+            }
+
+
+            if (response.Length == 3 & BoardState.gameDifficulty == "hard")
+            {
+                string secondChar = Char.ToString(response[1]);
+                string twoDigits = firstChar + secondChar;
+
+                if (!Array.Exists(validNumbers, element => element == twoDigits))
+                {
+                    Console.WriteLine(string.Format("{0} is invalid[1]. Please enter a valid tile.", response));
+                }
+                else if (!Array.Exists(validLetters, element => element == response[2]))
+                {
+                    Console.WriteLine(string.Format("{0} is invalid[2]. Please enter a valid tile.", response));
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            else if (response.Length != 2)
             {
                 Console.WriteLine(string.Format("{0} is invalid[0]. Please enter a valid tile.", response));
             }
-            else if (!Array.Exists(validNumbers, element => element == response[0]))
+            else if (!Array.Exists(validNumbers, element => element == firstChar))
             {
                 Console.WriteLine(string.Format("{0} is invalid[1]. Please enter a valid tile.", response));
             }

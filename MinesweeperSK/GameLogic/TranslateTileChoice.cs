@@ -24,9 +24,10 @@ namespace MinesweeperSK.GameLogic
             p
         };
         
-        public static int Translate(string tileChoice)
+        public static int Translate(string tileChoice, int responseLength)
         {
             int boardWidth = 0;
+
 
             if (BoardState.gameDifficulty == "easy") { boardWidth = 5; }
             if (BoardState.gameDifficulty == "regular") { boardWidth = 9; }
@@ -34,13 +35,28 @@ namespace MinesweeperSK.GameLogic
 
             char firstChar = tileChoice[0];
             char secondChar = tileChoice[1];
+            Alphabet letterEnum = Alphabet.a;
+            int firstInt = 0;
 
-            Alphabet secondEnum = (Alphabet)Enum.Parse(typeof(Alphabet), Char.ToString(secondChar));
+            if (responseLength == 2)
+            {
+                letterEnum = (Alphabet)Enum.Parse(typeof(Alphabet), Char.ToString(secondChar));
+                firstInt = (int)Char.GetNumericValue(firstChar);
+            }
+            if (responseLength == 3)
+            {
+                char thirdChar = tileChoice[2];
+                letterEnum = (Alphabet)Enum.Parse(typeof(Alphabet), Char.ToString(thirdChar));
+                string twoDigits = Char.ToString(firstChar) + Char.ToString(secondChar);
 
-            int firstInt = (int)Char.GetNumericValue(firstChar);
-            int secondInt = Convert.ToInt32(secondEnum);
+                firstInt = Int32.Parse(twoDigits);
+            }
+
+
+            int secondInt = Convert.ToInt32(letterEnum);
 
             var tileToChange = ((firstInt - 1) * boardWidth) + secondInt;
+
             return tileToChange;
         }
     }

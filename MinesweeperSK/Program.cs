@@ -18,6 +18,7 @@ namespace MinesweeperSK
             bool winner = false;
 
             BoardState.InitializeBoardState(boardSizeSelection);
+            //Matrix.PrintMatrix();
 
             while (isPlaying == true)
             {
