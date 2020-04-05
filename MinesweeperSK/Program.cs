@@ -8,8 +8,11 @@ namespace MinesweeperSK
     
     class GameFlow
     {
+        public static DateTime startTime = DateTime.Now;
+
         public static void Main()
         {
+            startTime = DateTime.Now;
             StartingScreen.PrintStartingScreen();
 
             string boardSizeSelection = StartingScreen.ManageStartingScreen();

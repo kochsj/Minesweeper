@@ -37,7 +37,6 @@
     <Compile Include="GameLogic\SquareCheck.cs" />
     <Compile Include="Text\Instructions.cs" />
     <Compile Include="Text\GameOver.cs" />
-    <Compile Include="Text\Winner.cs" />
     <Compile Include="Visuals\Tiles.cs" />
     <Compile Include="GameLogic\Matrix.cs" />
     <Compile Include="GameLogic\UserSelection.cs" />

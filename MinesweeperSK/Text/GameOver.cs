@@ -9,14 +9,17 @@ namespace MinesweeperSK.Text
         public static void PrintGameOver()
         {
             ShowAllBombTiles();
+
             Console.WriteLine("GAME OVER");
-            // TODO: Print Text.GameOver (with time, stats, etc)
+
+            PrintGameStats();
+
             Console.ReadLine();
         }
 
         public static void EraseGameOver()
         {
-            UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 2);
+            UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 3);
         }
 
         public static void ShowAllBombTiles()
@@ -30,6 +33,12 @@ namespace MinesweeperSK.Text
             }
 
             BoardState.UpdateTheBoardState(tileDict);
+        }
+
+        public static void PrintGameStats()
+        {
+            var elapsedTime = DateTime.Now.Subtract(GameFlow.startTime);
+            Console.WriteLine("Time elapsed: {0:mm\\:ss}", elapsedTime);
         }
     }
 }
