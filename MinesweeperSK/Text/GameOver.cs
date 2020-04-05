@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MinesweeperSK.GameLogic;
 
 namespace MinesweeperSK.Text
@@ -7,8 +8,8 @@ namespace MinesweeperSK.Text
     {
         public static void PrintGameOver()
         {
+            ShowAllBombTiles();
             Console.WriteLine("GAME OVER");
-            // TODO: show all bomb tiles
             // TODO: Print Text.GameOver (with time, stats, etc)
             Console.ReadLine();
         }
@@ -16,6 +17,19 @@ namespace MinesweeperSK.Text
         public static void EraseGameOver()
         {
             UserSelection.ClearCurrentConsoleLine(Console.CursorTop, 2);
+        }
+
+        public static void ShowAllBombTiles()
+        {
+            int[] bombTiles = Matrix.RetrieveTileNumbers();
+            Dictionary<int, string> tileDict = new Dictionary<int, string>();
+
+            foreach (int bombTile in bombTiles)
+            {
+                tileDict.Add(bombTile, Tiles.BombTile());
+            }
+
+            BoardState.UpdateTheBoardState(tileDict);
         }
     }
 }

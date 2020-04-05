@@ -6,9 +6,6 @@ namespace MinesweeperSK.GameLogic
 {
     public class SquareCheck
     {
-        /// <summary>
-        /// Checks the current Gameboard tile matrix for bombs, adjacent bombs, or adjacent empty tiles.
-        /// </summary>
 
         public static Dictionary<int,string> SquareCheckHandler(string tileChoice)
         {
