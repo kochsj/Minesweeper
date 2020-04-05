@@ -236,7 +236,7 @@ namespace MinesweeperSK.GameLogic
             }
             int getWest(int tileChoice)
             {
-                if (tileChoice % boardWidth != 0) { return tileChoice - 1; }
+                if ((tileChoice % boardWidth) != 0) { return tileChoice - 1; }
                 else { return -1; }
             }
 
